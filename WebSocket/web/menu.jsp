@@ -40,7 +40,11 @@
         </div>
         <div class="container">
             <div class="starter-template">
-                <h1>WebSocket</h1>                
+                <h1>WebSocket</h1>
+                <h1>https://netbeans.org/kb/docs/javaee/maven-websocketapi.html</h1>
+                <h1>http://blog.caelum.com.br/websockets-html5-em-java-com-jetty-web-em-tempo-real/</h1>
+                <h1>http://www.infoq.com/br/articles/websocket-java-javaee</h1>
+                
             </div>
         </div>
         <script src="assets/js/jquery-1.11.1.min.js"></script>
