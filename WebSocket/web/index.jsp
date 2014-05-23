@@ -12,8 +12,8 @@
     <body>
         <div class="container">
             <form class="form-signin" role="form" id="form">                
-                <input type="email" class="form-control" placeholder="Email">
-                <input type="password" class="form-control" placeholder="Senha">                
+                <input type="email" class="form-control" placeholder="Email" name="email">
+                <input type="password" class="form-control" placeholder="Senha" name="senha">                
                 <button class="btn btn-lg btn-primary btn-block" type="button" id="login">Fazer Login</button>
             </form>
         </div>
@@ -23,6 +23,6 @@
             $("#form").attr({action: "Autenticar"});
             $("#form").submit();
         });       
-    </script>  
+        </script>  
     </body>
 </html>

@@ -1,31 +1,40 @@
 package servlet;
 
+import conexao.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "Autenticar", urlPatterns = {"/Autenticar"})
+@WebServlet(name = "Autenticar", urlPatterns = {"/Autenticar"}, initParams = {
+    @WebInitParam(name = "Nome", value = "Valor")})
 public class Autenticar extends HttpServlet {
-   
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        WebUtil util = new WebUtil();
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Autenticar</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Autenticar at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String theLogin = util.readParameter(request, "email", "");
+        String thePasswd = util.readParameter(request, "senha", "");                
+        AutenticarService service = new AutenticarService();
+        User user = service.authenticate(theLogin, thePasswd);
+               
+        if (user != null) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("id", String.valueOf(user.getId()));
+            session.setAttribute("name", user.getNome());
+            response.sendRedirect("menu.jsp");            
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
+            response.sendRedirect("index.jsp");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

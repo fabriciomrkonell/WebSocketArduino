@@ -79,17 +79,7 @@ public abstract class AbstractDAO {
         }
     }
 
-    /*
-     * executeQuery()  --- This is used generally for reading the content of the database.
-     *                     The output will be in the form of ResultSet. Generally SELECT statement is used.
-     *
-     * executeUpdate() --- This is generally used for altering the databases.
-     *                     Generally DROP TABLE or DATABASE, INSERT into TABLE, UPDATE TABLE, DELETE from TABLE statements will be used in this.
-     *                     The output will be in the form of int. This int value denotes the number of rows affected by the query.
-     *
-     * execute()       --- If you dont know which method to be used for executing SQL statements, this method can be used. This will return a boolean.
-     *                     TRUE indicates the result is a ResultSet and FALSE indicates it has the int value which denotes number of rows affected by the query.
-     */
+
     protected int __doDatabaseUpdate(PreparedStatement stmt) throws SQLException {
         return stmt.executeUpdate();
     }

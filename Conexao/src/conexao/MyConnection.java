@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class MyConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/programacao4";
+    private static final String URL = "jdbc:mysql://localhost:3306/websocket";
     private static final String USER = "root";
     private static final String PASSWD = "system";
     private static Connection con = null;
