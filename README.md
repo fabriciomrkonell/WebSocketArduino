@@ -9,7 +9,6 @@ Fazer as duas ferramentas se comunicar entre si
 
 Ferramentas utilizadas
 =======
-* Socket.io
-* Node
+* WebSocket
 * Java
 
