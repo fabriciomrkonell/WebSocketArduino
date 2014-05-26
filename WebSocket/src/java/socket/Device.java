@@ -8,9 +8,6 @@ public class Device {
     private String type;
     private String description;
 
-    public Device() {
-    }
-
     public int getId() {
         return id;
     }
