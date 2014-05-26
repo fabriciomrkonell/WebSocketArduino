@@ -8,7 +8,7 @@ public class MyConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/websocket";
     private static final String USER = "root";
-    private static final String PASSWD = "system";
+    private static final String PASSWD = "root";
     private static Connection con = null;
     private static MyConnection conn;
 
