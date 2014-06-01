@@ -6,7 +6,7 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
     $scope.listUsers = [];
     $scope.userAction = {};
 
-    $scope.sair = function(idUser) {
+    $scope.sair = function(idUser) {        
         $scope.removeUser(idUser);
         $window.location.href = "getOut.jsp";
     };
@@ -35,10 +35,10 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
 
     };
 
-    $scope.removeUser = function(obj) {
+    $scope.removeUser = function(obj) {        
         $scope.userAction = {
             action: "remove",
-            id: obj
+            id: parseInt(obj)
         };
         socket.send(JSON.stringify($scope.userAction));
     };
@@ -50,7 +50,7 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
                 $scope.listUsers.push(user);
             });
         }
-        if (user.action === "remove") {
+        if (user.action === "remove") {            
             for (var i = 0; i < $scope.listUsers.length; i++) {
                 if ($scope.listUsers[i].id == user.id) {
                     $scope.listUsers.splice(i, 1);

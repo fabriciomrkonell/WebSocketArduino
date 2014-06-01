@@ -49,7 +49,7 @@ public class Server {
                 User user = new User();
                 int id = (int) parseInt(jsonMessage.getString("id"));
                 user.setId(id);
-                user.setNome(jsonMessage.getString("id"));
+                user.setNome(jsonMessage.getString("name"));
                 user.setEmail(jsonMessage.getString("email"));
                 sessionHandler.addUser(user);
             }

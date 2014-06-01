@@ -51,7 +51,7 @@
                                 <div><span>{{obj.email}}</span></div>
                                 <br>
                                 <div>
-                                    <button class="btn btn-success btn-xs" type="button" ng-click="removeUser(obj.id)">Remover</button>
+                                    <button class="btn btn-success btn-xs" type="button" ng-click="removeUser(obj.id)" ng-disabled="true">Remover</button>
                                 </div>                                                
                             </div>
                         </div>
