@@ -1,5 +1,6 @@
 package socket;
 
+import conexao.User;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +12,13 @@ import javax.websocket.Session;
 @ApplicationScoped
 public class SessionHandler {
 
-    private int deviceId = 0;
     private final ArrayList<Session> sessions = new ArrayList<Session>();
-    private final ArrayList<Device> devices = new ArrayList<Device>();
+    private final ArrayList<User> users = new ArrayList<User>();
 
     public void addSession(Session session) throws IOException {
         sessions.add(session);
-        for (Device device : devices) {
-            JsonObject addMessage = createAddMessage(device);
+        for (User user : users) {
+            JsonObject addMessage = createAddMessage(user);
             sendToSession(session, addMessage);
         }
     }
@@ -27,22 +27,21 @@ public class SessionHandler {
         sessions.remove(session);
     }
 
-    public List getDevices() {
-        return new ArrayList<>(devices);
+    public List getUsers() {
+        return new ArrayList<>(users);
     }
 
-    public void addDevice(Device device) throws IOException {
-        device.setId(deviceId);
-        devices.add(device);
-        deviceId++;
-        JsonObject addMessage = createAddMessage(device);
+    public void addUser(User user) throws IOException {        
+        removeUser(user.getId());
+        users.add(user);
+        JsonObject addMessage = createAddMessage(user);
         sendToAllConnectedSessions(addMessage);
     }
 
-    public void removeDevice(int id) throws IOException {
-        Device device = getDeviceById(id);
-        if (device != null) {
-            devices.remove(device);
+    public void removeUser(int id) throws IOException {
+        User user = getUserById(id);
+        if (user != null) {
+            users.remove(user);
             JsonProvider provider = JsonProvider.provider();
             JsonObject removeMessage = provider.createObjectBuilder()
                     .add("action", "remove")
@@ -52,42 +51,22 @@ public class SessionHandler {
         }
     }
 
-    public void toggleDevice(int id) throws IOException {
-        JsonProvider provider = JsonProvider.provider();
-        Device device = getDeviceById(id);
-        if (device != null) {
-            if ("On".equals(device.getStatus())) {
-                device.setStatus("Off");
-            } else {
-                device.setStatus("On");
-            }
-            JsonObject updateDevMessage = provider.createObjectBuilder()
-                    .add("action", "toggle")
-                    .add("id", device.getId())
-                    .add("status", device.getStatus())
-                    .build();
-            sendToAllConnectedSessions(updateDevMessage);
-        }
-    }
-
-    private Device getDeviceById(int id) {
-        for (Device device : devices) {
-            if (device.getId() == id) {
-                return device;
+    private User getUserById(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                return user;
             }
         }
         return null;
     }
 
-    private JsonObject createAddMessage(Device device) {
+    private JsonObject createAddMessage(User user) {
         JsonProvider provider = JsonProvider.provider();
         JsonObject addMessage = provider.createObjectBuilder()
                 .add("action", "add")
-                .add("id", device.getId())
-                .add("name", device.getName())
-                .add("type", device.getType())
-                .add("status", device.getStatus())
-                .add("description", device.getDescription())
+                .add("id", user.getId())
+                .add("name", user.getNome())
+                .add("email", user.getEmail())
                 .build();
         return addMessage;
     }

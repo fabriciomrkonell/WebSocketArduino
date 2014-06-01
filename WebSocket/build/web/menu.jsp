@@ -5,6 +5,7 @@
 <%!
     public String userId;
     public String userName;
+    public String userEmail;
 %>   
 
 <%
@@ -14,6 +15,7 @@
     } else {
         this.userId = (String) session.getAttribute("id");
         this.userName = (String) session.getAttribute("name");
+        this.userEmail = (String) session.getAttribute("email");
     }
     WebUtil util = new WebUtil();
 %>
@@ -23,36 +25,43 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">                
-        <title>WebSocket - Arduino</title>
+        <title>WebSocket</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">      
         <link href="assets/css/template.css" rel="stylesheet">
     </head>
-    <body>
+    <body ng-app="websocketApp" ng-controller="websocketCtrl" ng-init="inicio('<%=this.userName%>', '<%=this.userId%>', '<%=this.userEmail%>')">        
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="text-center">                    
-                    <a class="navbar-brand" href="javascript:void(0)"><%=this.userName%></a>
-                    <a class="navbar-brand" href="socket.jsp">Socket</a>
+                    <a class="navbar-brand" href="javascript:void(0)"><%=this.userName%></a>                    
                 </div>               
-                <div class="text-center">                    
-                    <a class="navbar-brand navbar-right" href="javascript:void(0)" id="btnSair">Sair</a>
+                <div class="text-center">                       
+                    <a type="button" class="btn btn-danger navbar-right" ng-click="sair()">Sair</a>                    
                 </div>               
             </div>
-        </div>
+        </div>                
         <div class="container">
-            <div class="starter-template">
-                <h1>WebSocket</h1>
-                <h1>https://netbeans.org/kb/docs/javaee/maven-websocketapi.html</h1>
-                <h1>http://blog.caelum.com.br/websockets-html5-em-java-com-jetty-web-em-tempo-real/</h1>
-                <h1>http://www.infoq.com/br/articles/websocket-java-javaee</h1>
-
+            <div class="starter-template">                 
+                <div class="row">                    
+                    <div class="col-sm-12">
+                        <h3>Usuário Conectados</h3>                           
+                        <div id="content">
+                            <div class="user user-primary" ng-repeat="obj in listUsers">
+                                <div><span><strong>{{obj.name}}</strong></span></div>
+                                <div><span>{{obj.email}}</span></div>
+                                <br>
+                                <div>
+                                    <button class="btn btn-success btn-xs" type="button" ng-click="removeUser(obj)">Remover</button>
+                                </div>                                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <script src="assets/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript">
-            $('#btnSair').click(function() {
-                window.location = "getOut.jsp";
-            });
-        </script> 
-    </body>
+    </div>
+    <script src="assets/js/jquery-1.11.1.min.js"></script>       
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
 </html>

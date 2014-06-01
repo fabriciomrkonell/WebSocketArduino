@@ -29,6 +29,7 @@ public class Autenticar extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("id", String.valueOf(user.getId()));
             session.setAttribute("name", user.getNome());
+            session.setAttribute("email", user.getEmail());
             response.sendRedirect("menu.jsp");            
         } else {
             response.setContentType("text/html;charset=UTF-8");

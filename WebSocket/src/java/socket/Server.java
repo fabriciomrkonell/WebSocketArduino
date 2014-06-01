@@ -1,7 +1,9 @@
 package socket;
 
+import conexao.User;
 import java.io.IOException;
 import java.io.StringReader;
+import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
@@ -44,22 +46,17 @@ public class Server {
             JsonObject jsonMessage = reader.readObject();
 
             if ("add".equals(jsonMessage.getString("action"))) {
-                Device device = new Device();
-                device.setName(jsonMessage.getString("name"));
-                device.setDescription(jsonMessage.getString("description"));
-                device.setType(jsonMessage.getString("type"));
-                device.setStatus("Off");
-                sessionHandler.addDevice(device);
+                User user = new User();
+                int id = (int) parseInt(jsonMessage.getString("id"));
+                user.setId(id);
+                user.setNome(jsonMessage.getString("id"));
+                user.setEmail(jsonMessage.getString("email"));
+                sessionHandler.addUser(user);
             }
 
             if ("remove".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");
-                sessionHandler.removeDevice(id);
-            }
-
-            if ("toggle".equals(jsonMessage.getString("action"))) {
-                int id = (int) jsonMessage.getInt("id");
-                sessionHandler.toggleDevice(id);
+                sessionHandler.removeUser(id);
             }
         }
     }
