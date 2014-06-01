@@ -1,12 +1,12 @@
 angular.module('websocketApp', []).controller("websocketCtrl", function($scope, $window, $timeout) {
 
     var socket = new WebSocket("ws://localhost:8080/WebSocket/WebSocket");
-    socket.onmessage = onMessage;
+
 
     $scope.listUsers = [];
     $scope.userAction = {};
 
-    $scope.sair = function(idUser) {        
+    $scope.sair = function(idUser) {
         $scope.removeUser(idUser);
         $window.location.href = "getOut.jsp";
     };
@@ -35,7 +35,7 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
 
     };
 
-    $scope.removeUser = function(obj) {        
+    $scope.removeUser = function(obj) {
         $scope.userAction = {
             action: "remove",
             id: parseInt(obj)
@@ -43,14 +43,14 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
         socket.send(JSON.stringify($scope.userAction));
     };
 
-    function onMessage(event) {
+    $scope.onMessage = function(event) {
         var user = JSON.parse(event.data);
         if (user.action === "add") {
             $timeout(function() {
                 $scope.listUsers.push(user);
             });
         }
-        if (user.action === "remove") {            
+        if (user.action === "remove") {
             for (var i = 0; i < $scope.listUsers.length; i++) {
                 if ($scope.listUsers[i].id == user.id) {
                     $scope.listUsers.splice(i, 1);
@@ -61,7 +61,9 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
                 $scope.$apply();
             }
         }
-    }
+    };
+
+    socket.onmessage = $scope.onMessage;
 
 });
 
