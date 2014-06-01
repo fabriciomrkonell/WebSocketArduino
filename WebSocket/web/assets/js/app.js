@@ -6,7 +6,8 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
     $scope.listUsers = [];
     $scope.userAction = {};
 
-    $scope.sair = function() {
+    $scope.sair = function(idUser) {
+        $scope.removeUser(idUser);
         $window.location.href = "getOut.jsp";
     };
 
@@ -37,7 +38,7 @@ angular.module('websocketApp', []).controller("websocketCtrl", function($scope, 
     $scope.removeUser = function(obj) {
         $scope.userAction = {
             action: "remove",
-            id: obj.id
+            id: obj
         };
         socket.send(JSON.stringify($scope.userAction));
     };

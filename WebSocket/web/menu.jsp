@@ -36,7 +36,7 @@
                     <a class="navbar-brand" href="javascript:void(0)"><%=this.userName%></a>                    
                 </div>               
                 <div class="text-center">                       
-                    <a type="button" class="btn btn-danger navbar-right" ng-click="sair()">Sair</a>                    
+                    <a type="button" class="btn btn-danger navbar-right" ng-click="sair('<%=this.userId%>')">Sair</a>                    
                 </div>               
             </div>
         </div>                
@@ -45,13 +45,13 @@
                 <div class="row">                    
                     <div class="col-sm-12">
                         <h3>Usuário Conectados</h3>                           
-                        <div id="content">
-                            <div class="user user-primary" ng-repeat="obj in listUsers">
+                        <div class="text-center">
+                            <div class="user user-primary col-sm-2" ng-repeat="obj in listUsers">
                                 <div><span><strong>{{obj.name}}</strong></span></div>
                                 <div><span>{{obj.email}}</span></div>
                                 <br>
                                 <div>
-                                    <button class="btn btn-success btn-xs" type="button" ng-click="removeUser(obj)">Remover</button>
+                                    <button class="btn btn-success btn-xs" type="button" ng-click="removeUser(obj.id)">Remover</button>
                                 </div>                                                
                             </div>
                         </div>
