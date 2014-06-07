@@ -1,47 +1,28 @@
-<!DOCTYPE html> 
-<html> <head> <title>Apache Tomcat WebSocket Examples: Chat</title> 
-        <style type="text/css"> p { margin: 0; } #messageArea { width: 500px; height: 200px; overflow: auto; border: 1px solid black; } #iptMessage { width: 240px; } </style> </head> 
-    <body> <h2>Introdução WebSocket</h2> <div id="messageArea"></div> <div> <form onsubmit="return false;"> 
-                <input id="iptMessage" name="message" /> <button id="btnEnviar">Enviar</button> </form> </div> 
-        <script type="text/javascript"> function log(msg) {
-        if (typeof console !== "undefined")
-            console.log(msg);
-    }
-    var username = prompt("Conectar como?");
-    if ('WebSocket' in window) {
-        var websocket = new WebSocket("ws://localhost:8080/WebSocketTomCat/websocket?username=" + username);        
-    } else if ('MozWebSocket' in window) {
-        var websocket = new WebSocket("ws://localhost:8080/WebSocketTomCat/websocket?username=" + username);
-    } else {
-        alert("Browser não suporta WebSocket");
-    }
-    if (websocket != undefined) {
-        websocket.onopen = function() {
-            log("Conectou com sucesso");
-        };
-        websocket.onclose = function() {
-            log("Desconectou com sucesso");
-            alert("Desconectou com sucesso");
-        };
-        websocket.onerror = function() {
-            log("Aconteceu um erro");
-        };
-        websocket.onmessage = function(data) {
-            log("Recebeu mensagem");
-            log(data);
-            var message = "<p>" + data.data + "</p>";
-            var messageArea = document.getElementById("messageArea");
-            messageArea.innerHTML += message;
-            messageArea.scrollTop = messageArea.scrollHeight;
-        };
-        function sendMessage(msg) {
-            log("Enviar mensagem (" + msg + ")");
-            websocket.send(msg);
-        }
-        document.getElementById("btnEnviar").onclick = function() {
-            var msg = document.getElementById("iptMessage").value;
-            sendMessage(msg);
-            return false;
-        };
-    }</script> </body> </html>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>      
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">                
+        <title>WebSocket - Arduino</title>
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">      
+        <link href="assets/css/style.css" rel="stylesheet"> 
+    </head>
+    <body>
+        <div class="container">
+            <form class="form-signin" role="form" id="form">                
+                <input type="email" class="form-control" placeholder="Email" name="email">
+                <input type="password" class="form-control" placeholder="Senha" name="senha">                
+                <button class="btn btn-lg btn-primary btn-block" type="button" id="login">Fazer Login</button>
+            </form>
+        </div>
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript">
+        $('#login').click(function() {
+            $("#form").attr({action: "Autenticar"});
+            $("#form").submit();
+        });       
+        </script>  
+    </body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.btn-danger{
+    margin-top: 10px !important;
+}
+
+.user {    
+    margin: 10px;
+    padding: 16px;
+    color: #fff;    
+    border-radius: 8px;            
+}
+
+
+.user.user-primary {   
+    background-color: #0f90d1;
+}
+
+.user.user-primary a:hover {
+    color: #4badd1;
+}
+
+.user a {
+    text-decoration: none;
+}
+
+.user a:visited, a:active, a:hover {
+    color: #fff;
+}
+
+.user a:hover {
+    text-decoration: underline;
+}

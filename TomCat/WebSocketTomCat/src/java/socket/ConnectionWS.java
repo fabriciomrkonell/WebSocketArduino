@@ -28,7 +28,8 @@ public final class ConnectionWS extends MessageInbound {
     } 
     
     @Override 
-    protected void onBinaryMessage(ByteBuffer arg0) throws IOException { throw new RuntimeException("Metodo não aceito"); 
+    protected void onBinaryMessage(ByteBuffer arg0) throws IOException { 
+        throw new RuntimeException("Metodo não aceito"); 
     } 
     
     @Override protected void onTextMessage(CharBuffer msg) throws IOException { 
