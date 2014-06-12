@@ -48,7 +48,7 @@
                         <div> 
                             <form onsubmit="return false;"> 
                                 <input id="iptMessage" name="message" /> 
-                                <button id="btnEnviar">Salvar</button> 
+                                <button id="btnEnviar">Envir</button> 
                             </form> 
                         </div> 
                     </div>
